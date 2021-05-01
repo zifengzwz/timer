@@ -75,7 +75,7 @@ class scheduler {
   };
 
   static int64_t now_milli() {
-    auto now = std::chrono::high_resolution_clock::now().time_since_epoch();
+    auto now = std::chrono::steady_clock::now().time_since_epoch();
     return std::chrono::duration_cast<std::chrono::milliseconds>(now).count();
   }
 
@@ -259,7 +259,7 @@ class scheduler {
 
   void worker_loop() {
     while (true) {
-      auto present = std::chrono::high_resolution_clock::now();
+      auto present = std::chrono::steady_clock::now();
       auto next_tick = present + std::chrono::milliseconds(precision_);
       int64_t now = std::chrono::duration_cast<std::chrono::milliseconds>(
                         present.time_since_epoch())
